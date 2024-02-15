@@ -94,7 +94,7 @@ code --install-extension "mutantdino.resourcemonitor"
 code --install-extension "github.vscode-github-actions"
 
 # theme
-code --install-extenxion "max-SS.Cyberpunk"
+code --install-extension "max-SS.Cyberpunk"
 #code --install-extension "ivanhofer.git-assistant" # Git (submodule) assistant # Seems to be ver slow, and not sure it offers value 
 echo "... Done"
 
