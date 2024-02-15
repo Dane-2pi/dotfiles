@@ -10,7 +10,9 @@ if [ ! -d $Workspace_Dir'/.dotfiles' ]; then
     cp -r ./dotfiles/ $Workspace_Dir'/.dotfiles'
 fi
 
-date +"%FORMAT_STRING"
+echo "Dotfiles copied" > $LOG_FILE
+echo $Workspace_Dir | tee -a $LOG_FILE
+echo $PWD | tee -a $LOG_FILE
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 

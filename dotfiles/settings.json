@@ -9,7 +9,8 @@
     "workbench.colorTheme": "Cyberpunk",
     "workbench.colorCustomizations": {
         "editorBracketHighlight.unexpectedBracket.foreground": "#ff0000"
-    }
+    },
+    "editor.minimap.enabled": false
 
 
 }
