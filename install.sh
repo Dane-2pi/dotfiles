@@ -6,7 +6,7 @@ LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
     mkdir $Workspace_Dir'/.dotfiles'
     #  copy the dotfiles into the workspace
-    cp -r ./dotfiles/ $Workspace_Dir'/.dotfiles'
+    cp -r ./dotfiles/dotfiles $Workspace_Dir'/.dotfiles'
 fi
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
@@ -46,7 +46,7 @@ echo "Setting up SSH keys" >> $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
 if [ ! -d $SSH_DIR ]; then
-    mkdir $SSH_DIR
+    mkdir -p $SSH_DIR
 fi
 
 if [ ! -f $SSH_DIR"/id_rsa" ]
