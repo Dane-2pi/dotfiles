@@ -1,11 +1,12 @@
 
 Workspace_Dir='/workspaces/'${RepositoryName}
-cd '/workspaces/'${RepositoryName}
+# cd '/workspaces/'${RepositoryName}
 
 LOG_FILE=${Workspace_Dir}'/.dotfiles/log.txt'
 
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
     mkdir $Workspace_Dir'/.dotfiles'
+    #  copy the dotfiles into the workspace
     cp -r ./dotfiles/ $Workspace_Dir'/.dotfiles'
 fi
 
