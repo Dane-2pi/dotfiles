@@ -11,7 +11,7 @@ fi
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 echo "dotfile commit hash: " >> $LOG_FILE
-git --git-dir=$Workspace_Dir'/.dotfiles/.git' rev-parse HEAD >> $LOG_FILE
+git --git-dir='/.dotfiles/.git' rev-parse HEAD >> $LOG_FILE
 
 
 # add .dotfiles folder to the gitignore
@@ -95,7 +95,7 @@ code --install-extension "github.vscode-github-actions"
 
 # theme
 code --install-extension "max-SS.Cyberpunk"
-#code --install-extension "ivanhofer.git-assistant" # Git (submodule) assistant # Seems to be ver slow, and not sure it offers value 
+
 echo "... Done"
 
 
