@@ -11,7 +11,7 @@ fi
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 echo "dotfile commit hash: " >> $LOG_FILE
-git --git-dir='/.dotfiles/.git' rev-parse HEAD >> $LOG_FILE
+git --git-dir='./.dotfiles/.git' rev-parse HEAD >> $LOG_FILE
 
 
 # add .dotfiles folder to the gitignore
