@@ -1,23 +1,13 @@
-
-# Workspace_Dir='/workspaces/'$RepositoryName - Repository name discontinued?  
-Workspace_Dir=$CODESPACE_VSCODE_FOLDER
+Workspace_Dir='/workspaces'${RepositoryName}
 # cd '/workspaces/'${RepositoryName}
-
-printenv
-echo "Workspace Dir: " $Workspace_Dir
 
 LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
 
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
     mkdir $Workspace_Dir'/.dotfiles'
-    #  copy the dotfiles into the workspace
-    cp -r ./dotfiles/ $Workspace_Dir'/.dotfiles'
 fi
 
-echo "Dotfiles copied" > $LOG_FILE
-echo "Dotfiles copied" | tee -a $LOG_FILE
-echo $Workspace_Dir | tee -a $LOG_FILE
-echo $PWD | tee -a $LOG_FILE
+date +"%FORMAT_STRING"
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 
@@ -82,19 +72,12 @@ echo "... Done"
 # git clone git@github.com:2pisoftware/artifax-module-bundle.git $PWD'/artifax-module-bundle' >> $LOG_FILE
 # echo "... Done"
 
-echo "Adding vscode settings:" >> $LOG_FILE
-# Add the settings.json file
-cp $Workspace_Dir'/.dotfiles/settings.json' $Workspace_Dir'/.vscode/settings.json'
-echo "... Done"
 
 echo "Loading Personal Extensions: "
 # Add additional extensions 
 code --install-extension "Gruntfuggly.todo-tree" 
 code --install-extension "oderwat.indent-rainbow"
 code --install-extension "mhutchie.git-graph"
-code --install-extension "JozefChmelar.compare" 
-code --install-extension "DavidAnson.vscode-markdownlint" 
-code --install-extension "waderyan.gitblame"
 #code --install-extension "eamodio.gitlens"
 code --install-extension "mutantdino.resourcemonitor"
 code --install-extenxion "github.vscode-github-actions"
