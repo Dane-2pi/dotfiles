@@ -48,30 +48,30 @@ echo "   Done" >> $LOG_FILE
 
 
 ## Setup the ssh key to clone any private repos that we need. 
-echo "Setting up SSH keys" >> $LOG_FILE
+echo "Setting up SSH keys"  | tee -a $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
 chmod -r 700 $SSH_DIR
 
-echo " create ssh dir" >> $LOG_FILE
+echo " create ssh dir"  | tee -a $LOG_FILE
 if [ ! -d $SSH_DIR ]; then
     sudo mkdir -p $SSH_DIR
 fi
 
-echo " create id_rsa" >> $LOG_FILE
+echo " create id_rsa"  | tee -a $LOG_FILE
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
     sudo touch $SSH_DIR'/id_rsa'
 fi
 
-echo " set permissions" >> $LOG_FILE
+echo " set permissions"  | tee -a $LOG_FILE
 sudo chmod 700 $SSH_DIR"/id_rsa"
 
-echo " write key" >> $LOG_FILE
+echo " write key" | tee -a $LOG_FILE
 
 printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
 chmod 400 $SSH_DIR"/id_rsa" 
-echo "... Done"
+echo "... Done"  | tee -a $LOG_FILE
 
 echo "adding Github to hosts" >> $LOG_FILE
 ## ad github to hosts to prevent a warning 
