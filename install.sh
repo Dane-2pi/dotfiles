@@ -51,7 +51,8 @@ echo "   Done" >> $LOG_FILE
 echo "Setting up SSH keys"  | tee -a $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
-chmod -r 700 $SSH_DIR
+chown -R vscode:vscode $SSH_DIR
+chmod -R 700 $SSH_DIR
 
 echo " create ssh dir"  | tee -a $LOG_FILE
 if [ ! -d $SSH_DIR ]; then
