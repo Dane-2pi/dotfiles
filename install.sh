@@ -1,9 +1,12 @@
+
+Workspace_Dir='/workspaces/'${RepositoryName}
 cd '/workspaces/'${RepositoryName}
 
-LOG_FILE=${PWD}'/.dotfiles/log.txt'
+LOG_FILE=${Workspace_Dir}'/.dotfiles/log.txt'
 
-if [ ! -d $PWD'/.dotfiles' ]; then 
-    mkdir $PWD'/.dotfiles'
+if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
+    mkdir $Workspace_Dir'/.dotfiles'
+    cp -r ./dotfiles/* $Workspace_Dir'/.dotfiles'
 fi
 
 date +"%FORMAT_STRING"
@@ -11,11 +14,11 @@ date +"%FORMAT_STRING"
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 
 # add .dotfiles folder to the gitignore
-if ! grep -Fxq '.dotfiles/' $PWD'/.gitignore'
+if ! grep -Fxq '.dotfiles/' $Workspace_Dir'/.gitignore'
 then
-    echo "" >> $PWD'/.gitignore'
-    echo "#Dotfiles " >> $PWD'/.gitignore'
-    echo '.dotfiles/' >> $PWD'/.gitignore'
+    echo "" >> $Workspace_Dir'/.gitignore'
+    echo "#Dotfiles " >> $Workspace_Dir'/.gitignore'
+    echo '.dotfiles/' >> $Workspace_Dir'/.gitignore'
     echo "Added lines to .gitignore" >> $LOG_FILE
 fi
 echo "Done .gitignore" >> $LOG_FILE
@@ -71,6 +74,10 @@ echo "... Done"
 # git clone git@github.com:2pisoftware/artifax-module-bundle.git $PWD'/artifax-module-bundle' >> $LOG_FILE
 # echo "... Done"
 
+echo "Adding vscode settings:" >> $LOG_FILE
+# Add the settings.json file
+cp $Workspace_Dir'/.dotfiles/settings.json' $Workspace_Dir'/.vscode/settings.json'
+echo "... Done"
 
 echo "Loading Personal Extensions: "
 # Add additional extensions 
@@ -80,11 +87,8 @@ code --install-extension "mhutchie.git-graph"
 code --install-extension "JozefChmelar.compare" 
 code --install-extension "DavidAnson.vscode-markdownlint" 
 code --install-extension "waderyan.gitblame"
-
-
 #code --install-extension "eamodio.gitlens"
 code --install-extension "mutantdino.resourcemonitor"
-
 code --install-extenxion "github.vscode-github-actions"
 #code --install-extension "ivanhofer.git-assistant" # Git (submodule) assistant # Seems to be ver slow, and not sure it offers value 
 echo "... Done"
