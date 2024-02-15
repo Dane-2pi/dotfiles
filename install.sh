@@ -52,16 +52,12 @@ echo "Setting up SSH keys"  | tee -a $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
 
-
-echo " create ssh dir"  | tee -a $LOG_FILE
 if [ ! -d $SSH_DIR ]; then
     mkdir -p $SSH_DIR
 else 
-    chown -R vscode:vscode $SSH_DIR
     chmod -R 777 $SSH_DIR
 fi
 
-echo " create id_rsa"  | tee -a $LOG_FILE
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
     # sudo touch $SSH_DIR'/id_rsa'
@@ -72,10 +68,7 @@ then
     echo "... Done"  | tee -a $LOG_FILE
 fi
 
-echo "adding Github to hosts" >> $LOG_FILE
 ## add github to hosts to prevent a warning 
-
-echo " create id_rsa"  | tee -a $LOG_FILE
 if [ ! -f $SSH_DIR"/known_hosts" ]
 then 
     touch $SSH_DIR"/known_hosts"
