@@ -74,9 +74,15 @@ fi
 
 echo "adding Github to hosts" >> $LOG_FILE
 ## add github to hosts to prevent a warning 
+
+echo " create id_rsa"  | tee -a $LOG_FILE
+if [ ! -f $SSH_DIR"/known_hosts" ]
+then 
+    touch $SSH_DIR"/known_hosts"
+fi
+
 if ! grep github.com $SSH_DIR/known_hosts > /dev/null
 then
-    chmod 644 $SSH_DIR/known_hosts
 	ssh-keyscan github.com >> $SSH_DIR/known_hosts
 fi
 echo "... Done"
