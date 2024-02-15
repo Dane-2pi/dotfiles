@@ -56,6 +56,7 @@ if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
     touch $SSH_DIR'/id_rsa'
 fi
+chmod 700 $SSH_DIR"/id_rsa"
 printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
 chmod 400 $SSH_DIR"/id_rsa" 
 echo "... Done"
