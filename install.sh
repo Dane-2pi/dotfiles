@@ -11,10 +11,11 @@ fi
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
 echo "dotfile commit hash:" $(git rev-parse HEAD) >> $LOG_FILE
-git rev-parse HEAD >> $LOG_FILE
 
+echo "" >> $LOG_FILE
 
 # add .dotfiles folder to the gitignore
+echo "Adding .dotfiles to .gitignore" >> $LOG_FILE
 if ! grep -Fxq '.dotfiles/' $Workspace_Dir'/.gitignore'
 then
     echo "" >> $Workspace_Dir'/.gitignore'
@@ -25,10 +26,12 @@ fi
 echo "Done .gitignore" >> $LOG_FILE
 
 
+
 ## Set an environment variable for user email 
+echo "Setting up environment variables" >> $LOG_FILE
 CMFIVE_USER_EMAIL=dane@2pisoftware.com
 export CMFIVE_USER_EMAIL
-echo "Set Your email" >> $LOG_FILE
+echo "   Done" >> $LOG_FILE
 
 
 # ## Setup GHCLI 
@@ -48,15 +51,24 @@ echo "Set Your email" >> $LOG_FILE
 echo "Setting up SSH keys" >> $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
+chmod -r 700 $SSH_DIR
+
+echo " create ssh dir" >> $LOG_FILE
 if [ ! -d $SSH_DIR ]; then
     sudo mkdir -p $SSH_DIR
 fi
 
+echo " create id_rsa" >> $LOG_FILE
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
-    touch $SSH_DIR'/id_rsa'
+    sudo touch $SSH_DIR'/id_rsa'
 fi
-chmod 700 $SSH_DIR"/id_rsa"
+
+echo " set permissions" >> $LOG_FILE
+sudo chmod 700 $SSH_DIR"/id_rsa"
+
+echo " write key" >> $LOG_FILE
+
 printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
 chmod 400 $SSH_DIR"/id_rsa" 
 echo "... Done"
