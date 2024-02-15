@@ -61,10 +61,10 @@ fi
 echo " create id_rsa"  | tee -a $LOG_FILE
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
-    sudo touch $SSH_DIR'/id_rsa'
+    # sudo touch $SSH_DIR'/id_rsa'
     echo " write key" | tee -a $LOG_FILE
 
-    printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
+    sudo printf "%s" "${PERSONAL_SSH_KEY}" >> $SSH_DIR"/id_rsa"
     chmod 400 $SSH_DIR"/id_rsa" 
     echo "... Done"  | tee -a $LOG_FILE
 fi
