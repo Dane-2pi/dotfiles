@@ -6,10 +6,13 @@ LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
     mkdir $Workspace_Dir'/.dotfiles'
     #  copy the dotfiles into the workspace
-    cp -r ./dotfiles $Workspace_Dir'/.dotfiles'
+    cp -r ./dotfiles/* $Workspace_Dir'/.dotfiles'
 fi
 
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
+echo "dotfile commit hash: " >> $LOG_FILE
+git --git-dir=$Workspace_Dir'/.dotfiles/.git' rev-parse HEAD >> $LOG_FILE
+
 
 # add .dotfiles folder to the gitignore
 if ! grep -Fxq '.dotfiles/' $Workspace_Dir'/.gitignore'
@@ -46,12 +49,12 @@ echo "Setting up SSH keys" >> $LOG_FILE
 
 SSH_DIR="/home/vscode/.ssh"
 if [ ! -d $SSH_DIR ]; then
-    mkdir -p $SSH_DIR
+    sudo mkdir -p $SSH_DIR
 fi
 
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
-    touch '/home/vscode/.ssh/id_rsa'
+    touch $SSH_DIR'/id_rsa'
 fi
 printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
 chmod 400 $SSH_DIR"/id_rsa" 
