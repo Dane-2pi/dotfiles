@@ -1,4 +1,4 @@
-Workspace_Dir='/workspaces'${RepositoryName}
+Workspace_Dir='/workspaces/'${RepositoryName}
 # cd '/workspaces/'${RepositoryName}
 
 LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
