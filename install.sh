@@ -3,6 +3,9 @@
 Workspace_Dir=$CODESPACE_VSCODE_FOLDER
 # cd '/workspaces/'${RepositoryName}
 
+printenv
+echo "Workspace Dir: " $Workspace_Dir
+
 LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
 
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
