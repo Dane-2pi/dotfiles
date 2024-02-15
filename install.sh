@@ -62,21 +62,18 @@ echo " create id_rsa"  | tee -a $LOG_FILE
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
     sudo touch $SSH_DIR'/id_rsa'
+    echo " write key" | tee -a $LOG_FILE
+
+    printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
+    chmod 400 $SSH_DIR"/id_rsa" 
+    echo "... Done"  | tee -a $LOG_FILE
 fi
 
-echo " set permissions"  | tee -a $LOG_FILE
-sudo chmod 700 $SSH_DIR"/id_rsa"
-
-echo " write key" | tee -a $LOG_FILE
-
-printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
-chmod 400 $SSH_DIR"/id_rsa" 
-echo "... Done"  | tee -a $LOG_FILE
-
 echo "adding Github to hosts" >> $LOG_FILE
-## ad github to hosts to prevent a warning 
+## add github to hosts to prevent a warning 
 if ! grep github.com $SSH_DIR/known_hosts > /dev/null
 then
+    chmod 644 $SSH_DIR/known_hosts
 	ssh-keyscan github.com >> $SSH_DIR/known_hosts
 fi
 echo "... Done"
