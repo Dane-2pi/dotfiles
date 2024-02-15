@@ -6,7 +6,7 @@ LOG_FILE=${Workspace_Dir}'/.dotfiles/log.txt'
 
 if [ ! -d $Workspace_Dir'/.dotfiles' ]; then 
     mkdir $Workspace_Dir'/.dotfiles'
-    cp -r ./dotfiles/* $Workspace_Dir'/.dotfiles'
+    cp -r ./dotfiles/ $Workspace_Dir'/.dotfiles'
 fi
 
 date +"%FORMAT_STRING"
