@@ -9,13 +9,13 @@ if [ ! -d $Workspace_Dir'/.dotfiles' ]; then
     cp -r ./dotfiles/* $Workspace_Dir'/.dotfiles'
 fi
 
-echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" > $LOG_FILE
-echo "dotfile commit hash:" $(git rev-parse HEAD) >> $LOG_FILE
+echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" | tee $LOG_FILE
+echo "dotfile commit hash:" $(git rev-parse HEAD)  | tee -a $LOG_FILE
 
-echo "" >> $LOG_FILE
+echo ""  | tee -a $LOG_FILE
 
 # add .dotfiles folder to the gitignore
-echo "Adding .dotfiles to .gitignore" >> $LOG_FILE
+echo "Adding .dotfiles to .gitignore"  | tee -a $LOG_FILE
 if ! grep -Fxq '.dotfiles/' $Workspace_Dir'/.gitignore'
 then
     echo "" >> $Workspace_Dir'/.gitignore'
@@ -23,15 +23,15 @@ then
     echo '.dotfiles/' >> $Workspace_Dir'/.gitignore'
     echo "Added lines to .gitignore" >> $LOG_FILE
 fi
-echo "Done .gitignore" >> $LOG_FILE
+echo "Done .gitignore"  | tee -a $LOG_FILE
 
 
 
 ## Set an environment variable for user email 
-echo "Setting up environment variables" >> $LOG_FILE
+echo "Setting up environment variables"  | tee -a $LOG_FILE
 CMFIVE_USER_EMAIL=dane@2pisoftware.com
 export CMFIVE_USER_EMAIL
-echo "   Done" >> $LOG_FILE
+echo "   Done"  | tee -a $LOG_FILE
 
 
 # ## Setup GHCLI 
@@ -61,11 +61,8 @@ fi
 if [ ! -f $SSH_DIR"/id_rsa" ]
 then 
     # sudo touch $SSH_DIR'/id_rsa'
-    echo " write key" | tee -a $LOG_FILE
-
-    sudo printf "%s" "${PERSONAL_SSH_KEY}" >> $SSH_DIR"/id_rsa"
+    sudo printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
     chmod 400 $SSH_DIR"/id_rsa" 
-    echo "... Done"  | tee -a $LOG_FILE
 fi
 
 ## add github to hosts to prevent a warning 
