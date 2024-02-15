@@ -1,5 +1,6 @@
 
-Workspace_Dir='/workspaces/'${RepositoryName}
+# Workspace_Dir='/workspaces/'$RepositoryName - Repository name discontinued?  
+Workspace_Dir=$CODESPACE_VSCODE_FOLDER
 # cd '/workspaces/'${RepositoryName}
 
 LOG_FILE=$Workspace_Dir'/.dotfiles/log.txt'
@@ -11,6 +12,7 @@ if [ ! -d $Workspace_Dir'/.dotfiles' ]; then
 fi
 
 echo "Dotfiles copied" > $LOG_FILE
+echo "Dotfiles copied" | tee -a $LOG_FILE
 echo $Workspace_Dir | tee -a $LOG_FILE
 echo $PWD | tee -a $LOG_FILE
 
