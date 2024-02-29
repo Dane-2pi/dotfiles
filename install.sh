@@ -9,6 +9,12 @@ if [ ! -d $Workspace_Dir'/.dotfiles' ]; then
     cp -r ./dotfiles/* $Workspace_Dir'/.dotfiles'
 fi
 
+echo "Installing linters "  >> $LOG_FILE
+# Install the linters
+bash ./install_linters.sh >> $LOG_FILE
+echo "... Done" >> $LOG_FILE
+
+
 echo "Dotfile loaded at $(date +"%H:%M:%SS, %d_%m_%Y")" | tee $LOG_FILE
 echo "dotfile commit hash:" $(git rev-parse HEAD)  | tee -a $LOG_FILE
 
@@ -87,10 +93,12 @@ echo "... Done"
 echo "Adding vscode settings:" >> $LOG_FILE
 # Add the settings.json file
 cp $Workspace_Dir'/.dotfiles/settings.json' $Workspace_Dir'/.vscode/settings.json'
-echo "... Done"
+echo "... Done" >> $LOG_FILE
 
 
-echo "Loading Personal Extensions: "
+
+
+echo "Loading Personal Extensions: " >> $LOG_FILE
 # Add additional extensions 
 code --install-extension "Gruntfuggly.todo-tree" 
 code --install-extension "oderwat.indent-rainbow"
@@ -98,14 +106,14 @@ code --install-extension "mhutchie.git-graph"
 code --install-extension "JozefChmelar.compare" 
 code --install-extension "DavidAnson.vscode-markdownlint" 
 code --install-extension "waderyan.gitblame"
-#code --install-extension "eamodio.gitlens"
+code --install-extension "eamodio.gitlens"
 code --install-extension "mutantdino.resourcemonitor"
 code --install-extension "github.vscode-github-actions"
 
 # theme
 code --install-extension "max-SS.Cyberpunk"
 
-echo "... Done"
+echo "... Done" >> $LOG_FILE
 
 
 exit 0
