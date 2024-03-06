@@ -1,0 +1,114 @@
+---
+#  This runs on the steam deck, as a self-hosted runner.
+#  It already has yamllint installed. 
+# Superlinter is currently a WIP. 
+
+name: Linting - Self Hosted
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [main, develop, lint/*, bugfix/Welcomefile]
+  pull_request:
+permissions: read-all
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  YAMLlint:
+    name: YAML-Lint .github/actions
+    runs-on: [self-hosted, linux, X64]  # steam deck
+    # continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      # - name: Install Yamllint
+      #   run: pacman -S yamllint
+      - name: Lint actions folder
+        run: |
+          set +e -o pipefail
+          yamllint -s ./.github/ | tee yamllint.log
+      - name: Upload yamllint logfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yamllint.log
+          path: yamllint.log
+          retention-days: 5
+          #  delete yamllint.log
+      - run: rm yamllint.log
+        name: cleanup
+        if: always()
+      - name: Install SHFMT
+        if: always()
+        run: |
+          set -o pipefail
+          curl -sS https://webinstall.dev/shfmt | bash
+          source ~/.config/envman/PATH.env
+      - name: shfmt
+        if: success()
+        # Run shfmt with 4 spaces.
+        run: |
+          set +e -o pipefail
+          shfmt -s -i 4 -d ./ | tee shfmt.diff
+          echo "shfmt exit code: $?"
+          exit 0
+        # Crude way to see errors, but it works
+      - run: grep @@ < shfmt.diff && exit 1 || exit 0
+        name: shfmt-check
+      - name: Upload shfmt logfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shfmt.diff
+          path: shfmt.diff
+          retention-days: 5
+
+  Superlinter:
+    name: Superlinter
+    runs-on: [self-hosted, linux]
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Superlinter - Touched files
+        uses: super-linter/super-linter/slim@v6.2.0  # x-release-please-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref }}
+          LOG_LEVEL: INFO
+          VALIDATE_ALL_CODEBASE: false
+          CREATE_LOG_FILE: true
+          LOG_FILE: superlinter.log
+          VALIDATE_SHELL_SHFMT: false  # can't get a useful output.
+          GITHUB_ACTIONS_COMMAND_ARGS: -ignore 'SC1090'
+      # - run: sudo chmod 777 superlinter.log
+      #   name: chmod logfile
+      #   if: always()
+      - name: Upload logfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: superlint-alltouched
+          path: superlinter.log
+          retention-days: 5
+      - name: Superlinter - Whole repo (log only)
+        uses: super-linter/super-linter/slim@v6.2.0  # x-release-please-version
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref }}
+          LOG_LEVEL: INFO
+          CREATE_LOG_FILE: true
+          LOG_FILE: superlinter.log
+          VALIDATE_SHELL_SHFMT: false  # can't get a useful output.
+          GITHUB_ACTIONS_COMMAND_ARGS: -ignore 'SC1090'
+          DISABLE_ERRORS: ${{ github.event_name == 'push' }}  # disable on push
+      # - run: sudo chmod 777 superlinter.log
+      #   name: chmod logfile
+      #   if: always()
+      - name: Upload logfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: superlint-whole_repo
+          path: superlinter.log
+          retention-days: 5

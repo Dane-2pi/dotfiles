@@ -6,3 +6,8 @@ sudo apt-get install -y yamllint
 curl -sS https://webinstall.dev/shfmt | bash
           source ~/.config/envman/PATH.env
 docker pull github/super-linter:latest 
+
+
+#  To run  them  :
+#  cd dotfiles 
+# bash run_linters.sh
