@@ -54,34 +54,34 @@ echo "   Done"  | tee -a $LOG_FILE
 
 
 ## Setup the ssh key to clone any private repos that we need. 
-echo "Setting up SSH keys"  | tee -a $LOG_FILE
+# echo "Setting up SSH keys"  | tee -a $LOG_FILE
 
-SSH_DIR="/home/vscode/.ssh"
+# SSH_DIR="/home/vscode/.ssh"
 
-if [ ! -d $SSH_DIR ]; then
-    mkdir -p $SSH_DIR
-else 
-    chmod -R 777 $SSH_DIR
-fi
+# if [ ! -d $SSH_DIR ]; then
+#     mkdir -p $SSH_DIR
+# else 
+#     chmod -R 777 $SSH_DIR
+# fi
 
-if [ ! -f $SSH_DIR"/id_rsa" ]
-then 
-    # sudo touch $SSH_DIR'/id_rsa'
-    sudo printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
-    chmod 400 $SSH_DIR"/id_rsa" 
-fi
+# if [ ! -f $SSH_DIR"/id_rsa" ]
+# then 
+#     # sudo touch $SSH_DIR'/id_rsa'
+#     sudo printf "%s" "${PERSONAL_SSH_KEY}" > $SSH_DIR"/id_rsa"
+#     chmod 400 $SSH_DIR"/id_rsa" 
+# fi
 
-## add github to hosts to prevent a warning 
-if [ ! -f $SSH_DIR"/known_hosts" ]
-then 
-    touch $SSH_DIR"/known_hosts"
-fi
+# ## add github to hosts to prevent a warning 
+# if [ ! -f $SSH_DIR"/known_hosts" ]
+# then 
+#     touch $SSH_DIR"/known_hosts"
+# fi
 
-if ! grep github.com $SSH_DIR/known_hosts > /dev/null
-then
-	ssh-keyscan github.com >> $SSH_DIR/known_hosts
-fi
-echo "... Done"
+# if ! grep github.com $SSH_DIR/known_hosts > /dev/null
+# then
+# 	ssh-keyscan github.com >> $SSH_DIR/known_hosts
+# fi
+# echo "... Done"
 
 
 # echo "Cloning a private repo " >> $LOG_FILE
