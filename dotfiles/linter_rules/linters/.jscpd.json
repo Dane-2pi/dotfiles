@@ -1,0 +1,11 @@
+{
+    "threshold": 0,
+    "ignore": [
+      "**/.dotfiles/**",
+      "**/lint_logs/**",
+      "**/cmfive-boilerplate/**",
+      "**/cmfive-core/**",
+      "**/.git/**"
+    ]
+  }
+  

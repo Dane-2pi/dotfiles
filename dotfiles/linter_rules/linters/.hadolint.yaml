@@ -1,0 +1,10 @@
+---
+##########################
+## Hadolint config file ##
+##########################
+# Full schema at https://github.com/hadolint/hadolint
+
+failure-threshold: warning               # name of threshold level
+# format: string                          # Output format
+# ignore: string                          # List of checks to ignore
+ignored: [DL4006]                         # Pin version in apt-get
